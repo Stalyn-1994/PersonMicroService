@@ -2,9 +2,12 @@ package com.example.demo.service.impl;
 
 import com.example.demo.domain.jpa.CustomerJpa;
 import com.example.demo.domain.jpa.StatusJpa;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.InternalErrorException;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.StatusRepository;
 import com.example.demo.service.CustomerService;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -22,11 +25,18 @@ public class CustomerServiceImpl implements CustomerService {
   StatusRepository statusRepository;
 
   @Override
-  @Transactional
+  @Transactional(noRollbackFor = InternalErrorException.class)
   public int save(CustomerJpa customerJpa) {
     customerRepository.save(customerJpa);
-    return statusRepository.save(
-        StatusJpa.builder().identification(customerJpa.getIdentification()).status(Boolean.TRUE)
-            .build()).getId();
+    return saveStatus(customerJpa.getIdentification());
+  }
+
+  public int saveStatus(String identification) {
+    if (!Objects.isNull(identification)) {
+      return statusRepository.save(
+          StatusJpa.builder().identification(identification).status(Boolean.TRUE)
+              .build()).getId();
+    }
+    throw new BadRequestException();
   }
 }
