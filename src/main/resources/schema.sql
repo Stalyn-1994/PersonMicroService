@@ -16,5 +16,11 @@ CREATE TABLE manage_customer.customer
     FOREIGN KEY (user_type) REFERENCES manage_customer.type (id)
 );
 
+CREATE TABLE manage_customer.status
+(
+    id             INT NOT NULL PRIMARY KEY,
+    identification VARCHAR(50),
+    status         BOOLEAN
+);
 
 
