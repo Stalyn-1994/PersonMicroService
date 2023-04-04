@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    azure:
+      active-directory:
+        enabled: true
+        credential:
+#          client-id: c720794e-4d0a-438d-a884-a28faa063979
+          client-id: 24c1f1cb-e87c-49f6-aedd-405bfeec6484
+#        app-id-uri: api://c720794e-4d0a-438d-a884-a28faa063979
+        app-id-uri: api://24c1f1cb-e87c-49f6-aedd-405bfeec6484
+
+#secret: Pqg8Q~~5fTKPfwpzXCgTxbLd3OLlFPo3LUf4yaI3
+#app id: 24c1f1cb-e87c-49f6-aedd-405bfeec6484
+#object id: 01d90520-4d23-43ed-bad4-1b5035ec820e
+#tenant id f5b0d682-1497-4db0-9019-660035554e72
+
