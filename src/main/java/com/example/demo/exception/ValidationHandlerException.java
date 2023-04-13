@@ -15,4 +15,10 @@ public class ValidationHandlerException {
         log.error("Error validate active status:{}",badRequestException.getErrorDto());
         return new ResponseEntity<Object>(badRequestException.getErrorDto(),HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(UnAuthorizateException.class)
+    ResponseEntity<Object> onAuthorizateException(UnAuthorizateException unAuthorizateException){
+        log.error("Error validate active status:{}",unAuthorizateException.getErrorDto());
+        return new ResponseEntity<Object>(unAuthorizateException.getErrorDto(),HttpStatus.UNAUTHORIZED);
+    }
 }
