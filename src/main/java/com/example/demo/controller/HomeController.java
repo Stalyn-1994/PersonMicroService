@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.dto.CustomerDto;
 import com.example.demo.domain.jpa.CustomerJpa;
 import com.example.demo.service.CustomerService;
 import lombok.AccessLevel;
@@ -21,8 +22,8 @@ public class HomeController {
   CustomerService customerService;
 
   @GetMapping("/user")
-  public ResponseEntity<?> createUser(@RequestBody CustomerJpa customerJpa) {
-    return new ResponseEntity<>(customerService.save(customerJpa), HttpStatus.OK);
+  public ResponseEntity<?> createUser(@RequestBody CustomerDto customerDto) {
+    return new ResponseEntity<>(customerService.save(customerDto), HttpStatus.OK);
   }
 
 }

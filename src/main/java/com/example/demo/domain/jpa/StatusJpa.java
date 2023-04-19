@@ -1,6 +1,8 @@
 package com.example.demo.domain.jpa;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -20,6 +22,7 @@ import lombok.experimental.FieldDefaults;
 public class StatusJpa {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   Integer id;
   String identification;
   Boolean status;

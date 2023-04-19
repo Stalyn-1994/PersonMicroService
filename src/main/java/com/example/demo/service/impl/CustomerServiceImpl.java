@@ -1,12 +1,13 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.domain.dto.CustomerDto;
 import com.example.demo.domain.jpa.CustomerJpa;
 import com.example.demo.domain.jpa.StatusJpa;
 import com.example.demo.exception.BadRequestException;
-import com.example.demo.exception.InternalErrorException;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.StatusRepository;
 import com.example.demo.service.CustomerService;
+import com.example.demo.service.mapper.CustomerServiceMapper;
 import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +18,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Log4j2
 @Service
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CustomerServiceImpl implements CustomerService {
 
   CustomerRepository customerRepository;
   StatusRepository statusRepository;
+  CustomerServiceMapper customerServiceMapper;
 
   @Override
-  @Transactional(noRollbackFor = InternalErrorException.class)
-  public int save(CustomerJpa customerJpa) {
+  @Transactional(noRollbackFor = BadRequestException.class)
+  public int  save(CustomerDto customerDto) {
+    CustomerJpa customerJpa = customerServiceMapper.toCustomerJpa(customerDto);
     customerRepository.save(customerJpa);
     return saveStatus(customerJpa.getIdentification());
   }
